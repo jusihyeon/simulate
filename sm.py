@@ -1,5 +1,10 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+
+# 🔹 한글 폰트 설정
+plt.rcParams['font.family'] = 'Malgun Gothic'  # 윈도우
+plt.rcParams['axes.unicode_minus'] = False     # 마이너스 깨짐 방지
 
 # 앱 제목
 st.title("🔬 원자력 에너지 시뮬레이터 (기초편)")
@@ -34,10 +39,16 @@ energies = [
 ]
 
 fig, ax = plt.subplots()
-ax.plot(masses, energies, color="orange", linewidth=2)
+ax.plot(masses, energies, color="orange", linewidth=2, label="핵분열 에너지 곡선")
+
+# 현재 선택된 질량 위치에 점 표시
+current_energy = ((mass / U235_MOLAR_MASS) * AVOGADRO * ENERGY_PER_FISSION) / 3.6e6
+ax.scatter([mass], [current_energy], color="red", s=80, label="현재 선택값")
+
 ax.set_xlabel("우라늄 질량 (kg)")
 ax.set_ylabel("발생 에너지 (kWh)")
 ax.set_title("질량에 따른 핵분열 에너지")
+ax.legend()
 st.pyplot(fig)
 
 # 출처
