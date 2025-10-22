@@ -1,0 +1,2 @@
+import matplotlib.font_manager
+print(sorted([f.name for f in matplotlib.font_manager.fontManager.ttflist]))
